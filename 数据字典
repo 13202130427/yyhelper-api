@@ -1,0 +1,801 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.9
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost
+-- Generation Time: 2020-06-04 13:47:34
+-- 服务器版本： 5.7.26-log
+-- PHP Version: 7.2.18
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `yyhelper`
+--
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_admin`
+--
+
+CREATE TABLE `yyhelper_admin` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `level_id` int(11) NOT NULL,
+  `last_login_time` datetime NOT NULL,
+  `last_login_ip` varchar(50) NOT NULL,
+  `login_times` int(11) NOT NULL DEFAULT '0',
+  `admin_status` tinyint(4) NOT NULL DEFAULT '0',
+  `create_time` datetime NOT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `delete_time` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_admin_level`
+--
+
+CREATE TABLE `yyhelper_admin_level` (
+  `id` int(11) NOT NULL,
+  `level` varchar(20) NOT NULL,
+  `info` varchar(255) NOT NULL,
+  `user_audit` tinyint(4) NOT NULL DEFAULT '0',
+  `user_handle` tinyint(4) NOT NULL DEFAULT '0',
+  `manage_handle` tinyint(4) NOT NULL DEFAULT '0',
+  `manage_level_add` tinyint(4) NOT NULL DEFAULT '0',
+  `manage_look` tinyint(4) NOT NULL DEFAULT '0',
+  `news_edit` tinyint(4) NOT NULL DEFAULT '0',
+  `news_audit` tinyint(4) NOT NULL DEFAULT '0',
+  `user_look` tinyint(4) NOT NULL DEFAULT '0',
+  `news_look` tinyint(4) NOT NULL DEFAULT '0',
+  `user_del` tinyint(4) NOT NULL DEFAULT '0',
+  `news_del` tinyint(4) NOT NULL DEFAULT '0',
+  `route_look` int(11) NOT NULL DEFAULT '0',
+  `route_del` int(11) NOT NULL DEFAULT '0',
+  `route_audit` int(11) NOT NULL DEFAULT '0',
+  `update_time` datetime DEFAULT NULL,
+  `delete_time` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_audit`
+--
+
+CREATE TABLE `yyhelper_audit` (
+  `id` int(11) NOT NULL,
+  `type` int(11) NOT NULL DEFAULT '0' COMMENT '0实名认证 1学生认证',
+  `username` varchar(50) NOT NULL,
+  `idcard` varchar(18) NOT NULL,
+  `university_id` int(11) UNSIGNED DEFAULT NULL,
+  `edu_bg` varchar(50) DEFAULT NULL,
+  `start_time` varchar(50) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
+  `time` datetime NOT NULL,
+  `cause` text,
+  `userId` int(11) NOT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `delete_time` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_broadcast`
+--
+
+CREATE TABLE `yyhelper_broadcast` (
+  `id` int(11) NOT NULL,
+  `send_admin_id` int(11) NOT NULL,
+  `accept_admin_id` int(11) NOT NULL,
+  `title` varchar(250) NOT NULL,
+  `info` text NOT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `delete_time` datetime DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_campus_experience`
+--
+
+CREATE TABLE `yyhelper_campus_experience` (
+  `id` int(11) NOT NULL,
+  `company_name` varchar(50) NOT NULL,
+  `start_time` varchar(50) NOT NULL,
+  `end_time` varchar(50) NOT NULL,
+  `department` varchar(50) NOT NULL,
+  `info` text,
+  `type` varchar(50) NOT NULL,
+  `userId` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_colleges`
+--
+
+CREATE TABLE `yyhelper_colleges` (
+  `id` int(11) NOT NULL,
+  `university_id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_industry`
+--
+
+CREATE TABLE `yyhelper_industry` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_industrytwo`
+--
+
+CREATE TABLE `yyhelper_industrytwo` (
+  `id` int(11) NOT NULL,
+  `industryid` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_job`
+--
+
+CREATE TABLE `yyhelper_job` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_jobthree`
+--
+
+CREATE TABLE `yyhelper_jobthree` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `jobtwoid` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_jobtwo`
+--
+
+CREATE TABLE `yyhelper_jobtwo` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `jobid` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_job_history`
+--
+
+CREATE TABLE `yyhelper_job_history` (
+  `id` int(11) NOT NULL,
+  `company_name` varchar(50) NOT NULL,
+  `industry_id` int(11) NOT NULL,
+  `start_time` varchar(50) NOT NULL,
+  `end_time` varchar(50) NOT NULL,
+  `job_id` int(11) NOT NULL,
+  `department` varchar(50) NOT NULL,
+  `info` text NOT NULL,
+  `achievement` text,
+  `type` varchar(10) NOT NULL,
+  `userId` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_job_intention`
+--
+
+CREATE TABLE `yyhelper_job_intention` (
+  `id` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
+  `industry_id` int(11) NOT NULL DEFAULT '0',
+  `job_id` int(11) NOT NULL DEFAULT '0',
+  `region` varchar(50) NOT NULL DEFAULT '广东省,梅州市,梅江区',
+  `moneyIndex` varchar(50) NOT NULL DEFAULT '0,0',
+  `showMoneylist` varchar(50) NOT NULL DEFAULT '面议',
+  `userId` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_news`
+--
+
+CREATE TABLE `yyhelper_news` (
+  `id` int(11) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `author` varchar(50) NOT NULL,
+  `profile` varchar(50) DEFAULT NULL,
+  `content` longtext NOT NULL,
+  `url` varchar(250) NOT NULL,
+  `organization` varchar(50) NOT NULL,
+  `time` varchar(50) NOT NULL,
+  `times` varchar(50) NOT NULL DEFAULT '0',
+  `type` varchar(50) NOT NULL,
+  `colleges_id` int(11) NOT NULL DEFAULT '0',
+  `university_id` int(11) NOT NULL DEFAULT '1',
+  `status` int(11) NOT NULL DEFAULT '0',
+  `cause` text,
+  `admin_id` int(11) NOT NULL DEFAULT '0',
+  `update_time` datetime DEFAULT NULL,
+  `delete_time` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_prize`
+--
+
+CREATE TABLE `yyhelper_prize` (
+  `id` int(11) NOT NULL,
+  `info` text NOT NULL,
+  `userId` int(11) NOT NULL,
+  `type` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_project_experience`
+--
+
+CREATE TABLE `yyhelper_project_experience` (
+  `id` int(11) NOT NULL,
+  `project_name` varchar(50) NOT NULL,
+  `role` varchar(50) NOT NULL,
+  `start_time` varchar(50) NOT NULL,
+  `end_time` varchar(50) NOT NULL,
+  `info` text NOT NULL,
+  `achievement` text,
+  `url` varchar(250) DEFAULT NULL,
+  `type` varchar(50) NOT NULL,
+  `userId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_resume`
+--
+
+CREATE TABLE `yyhelper_resume` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `time` varchar(50) NOT NULL,
+  `type` varchar(50) NOT NULL,
+  `size` varchar(50) NOT NULL,
+  `path` varchar(250) NOT NULL,
+  `userId` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_route`
+--
+
+CREATE TABLE `yyhelper_route` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `info` text NOT NULL,
+  `industry_id` int(11) NOT NULL DEFAULT '0',
+  `job_id` int(11) NOT NULL DEFAULT '0',
+  `userId` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `time` varchar(50) DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `delete_time` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_skill`
+--
+
+CREATE TABLE `yyhelper_skill` (
+  `id` int(11) NOT NULL,
+  `info` text NOT NULL,
+  `userId` int(11) NOT NULL,
+  `type` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_study`
+--
+
+CREATE TABLE `yyhelper_study` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `video_id` int(11) NOT NULL,
+  `info` text NOT NULL,
+  `route_id` int(11) NOT NULL,
+  `sort` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_uid`
+--
+
+CREATE TABLE `yyhelper_uid` (
+  `id` int(11) NOT NULL,
+  `3rd_session` varchar(32) NOT NULL,
+  `open_id` varchar(255) NOT NULL,
+  `session_key` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_university`
+--
+
+CREATE TABLE `yyhelper_university` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `name` varchar(50) NOT NULL DEFAULT '嘉应学院',
+  `province` varchar(50) NOT NULL DEFAULT '广东',
+  `city` varchar(50) NOT NULL DEFAULT '梅州',
+  `region` varchar(50) NOT NULL DEFAULT '梅江区',
+  `status` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_user`
+--
+
+CREATE TABLE `yyhelper_user` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `password` varchar(50) NOT NULL,
+  `sex` tinyint(4) NOT NULL DEFAULT '0',
+  `uid` int(11) NOT NULL,
+  `route_id` int(11) NOT NULL DEFAULT '0',
+  `study_id` int(11) NOT NULL DEFAULT '0',
+  `page` varchar(50) NOT NULL DEFAULT '0',
+  `speed` varchar(50) NOT NULL DEFAULT '0',
+  `phone` varchar(50) NOT NULL DEFAULT '0',
+  `code` varchar(10) DEFAULT NULL,
+  `city` varchar(50) DEFAULT NULL,
+  `province` varchar(50) DEFAULT NULL,
+  `country` varchar(50) DEFAULT NULL,
+  `photo` varchar(250) NOT NULL DEFAULT '0',
+  `login_times` varchar(50) NOT NULL,
+  `ip` varchar(50) NOT NULL,
+  `create_time` varchar(50) NOT NULL DEFAULT '0',
+  `update_time` datetime NOT NULL,
+  `delete_time` varchar(50) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '启用状态 0启用 1禁用',
+  `person_status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '个人实名状态 0未实名 1已实名 2待审核',
+  `student_status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '学生身份实名状态 0未实名 1已实名 2审核中'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_video`
+--
+
+CREATE TABLE `yyhelper_video` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `photo` varchar(250) NOT NULL,
+  `url` varchar(250) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `time` varchar(50) NOT NULL DEFAULT '',
+  `userId` int(11) NOT NULL DEFAULT '0',
+  `cause` text,
+  `admin_id` int(11) NOT NULL DEFAULT '1',
+  `update_time` datetime DEFAULT NULL,
+  `delete_time` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yyhelper_videoinfo`
+--
+
+CREATE TABLE `yyhelper_videoinfo` (
+  `id` int(11) NOT NULL,
+  `video_id` int(11) NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `url` varchar(250) NOT NULL,
+  `page` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `yyhelper_admin`
+--
+ALTER TABLE `yyhelper_admin`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yyhelper_admin_level`
+--
+ALTER TABLE `yyhelper_admin_level`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yyhelper_audit`
+--
+ALTER TABLE `yyhelper_audit`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `userId` (`userId`),
+  ADD KEY `university_id` (`university_id`);
+
+--
+-- Indexes for table `yyhelper_broadcast`
+--
+ALTER TABLE `yyhelper_broadcast`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yyhelper_campus_experience`
+--
+ALTER TABLE `yyhelper_campus_experience`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yyhelper_colleges`
+--
+ALTER TABLE `yyhelper_colleges`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yyhelper_industry`
+--
+ALTER TABLE `yyhelper_industry`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yyhelper_industrytwo`
+--
+ALTER TABLE `yyhelper_industrytwo`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `industryid` (`industryid`);
+
+--
+-- Indexes for table `yyhelper_job`
+--
+ALTER TABLE `yyhelper_job`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yyhelper_jobthree`
+--
+ALTER TABLE `yyhelper_jobthree`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `jobtwoid` (`jobtwoid`);
+
+--
+-- Indexes for table `yyhelper_jobtwo`
+--
+ALTER TABLE `yyhelper_jobtwo`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `jobid` (`jobid`);
+
+--
+-- Indexes for table `yyhelper_job_history`
+--
+ALTER TABLE `yyhelper_job_history`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `jobHistoryId` (`userId`,`type`),
+  ADD KEY `job_id` (`job_id`);
+
+--
+-- Indexes for table `yyhelper_job_intention`
+--
+ALTER TABLE `yyhelper_job_intention`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yyhelper_news`
+--
+ALTER TABLE `yyhelper_news`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yyhelper_prize`
+--
+ALTER TABLE `yyhelper_prize`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yyhelper_project_experience`
+--
+ALTER TABLE `yyhelper_project_experience`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yyhelper_resume`
+--
+ALTER TABLE `yyhelper_resume`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yyhelper_route`
+--
+ALTER TABLE `yyhelper_route`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yyhelper_skill`
+--
+ALTER TABLE `yyhelper_skill`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yyhelper_study`
+--
+ALTER TABLE `yyhelper_study`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `route_id` (`route_id`),
+  ADD KEY `video_id` (`video_id`);
+
+--
+-- Indexes for table `yyhelper_uid`
+--
+ALTER TABLE `yyhelper_uid`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `3rd_session` (`3rd_session`);
+
+--
+-- Indexes for table `yyhelper_university`
+--
+ALTER TABLE `yyhelper_university`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `name` (`name`),
+  ADD KEY `region` (`region`);
+
+--
+-- Indexes for table `yyhelper_user`
+--
+ALTER TABLE `yyhelper_user`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `uid` (`uid`);
+
+--
+-- Indexes for table `yyhelper_video`
+--
+ALTER TABLE `yyhelper_video`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yyhelper_videoinfo`
+--
+ALTER TABLE `yyhelper_videoinfo`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `video_id` (`video_id`);
+
+--
+-- 在导出的表使用AUTO_INCREMENT
+--
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_admin`
+--
+ALTER TABLE `yyhelper_admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_admin_level`
+--
+ALTER TABLE `yyhelper_admin_level`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_audit`
+--
+ALTER TABLE `yyhelper_audit`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_broadcast`
+--
+ALTER TABLE `yyhelper_broadcast`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_campus_experience`
+--
+ALTER TABLE `yyhelper_campus_experience`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_colleges`
+--
+ALTER TABLE `yyhelper_colleges`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_industry`
+--
+ALTER TABLE `yyhelper_industry`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_industrytwo`
+--
+ALTER TABLE `yyhelper_industrytwo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_job`
+--
+ALTER TABLE `yyhelper_job`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_jobthree`
+--
+ALTER TABLE `yyhelper_jobthree`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1036;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_jobtwo`
+--
+ALTER TABLE `yyhelper_jobtwo`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_job_history`
+--
+ALTER TABLE `yyhelper_job_history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_job_intention`
+--
+ALTER TABLE `yyhelper_job_intention`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_news`
+--
+ALTER TABLE `yyhelper_news`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_prize`
+--
+ALTER TABLE `yyhelper_prize`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_project_experience`
+--
+ALTER TABLE `yyhelper_project_experience`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_resume`
+--
+ALTER TABLE `yyhelper_resume`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_route`
+--
+ALTER TABLE `yyhelper_route`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_skill`
+--
+ALTER TABLE `yyhelper_skill`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_study`
+--
+ALTER TABLE `yyhelper_study`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_uid`
+--
+ALTER TABLE `yyhelper_uid`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_university`
+--
+ALTER TABLE `yyhelper_university`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_user`
+--
+ALTER TABLE `yyhelper_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_video`
+--
+ALTER TABLE `yyhelper_video`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+
+--
+-- 使用表AUTO_INCREMENT `yyhelper_videoinfo`
+--
+ALTER TABLE `yyhelper_videoinfo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+
+--
+-- 限制导出的表
+--
+
+--
+-- 限制表 `yyhelper_study`
+--
+ALTER TABLE `yyhelper_study`
+  ADD CONSTRAINT `yyhelper_study_ibfk_1` FOREIGN KEY (`route_id`) REFERENCES `yyhelper_route` (`id`),
+  ADD CONSTRAINT `yyhelper_study_ibfk_2` FOREIGN KEY (`video_id`) REFERENCES `yyhelper_video` (`id`);
+
+--
+-- 限制表 `yyhelper_user`
+--
+ALTER TABLE `yyhelper_user`
+  ADD CONSTRAINT `uid` FOREIGN KEY (`uid`) REFERENCES `yyhelper_uid` (`id`);
+
+--
+-- 限制表 `yyhelper_videoinfo`
+--
+ALTER TABLE `yyhelper_videoinfo`
+  ADD CONSTRAINT `yyhelper_videoinfo_ibfk_1` FOREIGN KEY (`video_id`) REFERENCES `yyhelper_video` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
